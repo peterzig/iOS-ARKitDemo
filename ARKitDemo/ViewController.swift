@@ -24,10 +24,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
+        
+        createImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +47,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    func createImage() {
+        let sphere = SCNSphere(radius: 0.3)
+        let node = SCNNode(geometry: sphere)
+        
+        sphere.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/discoball.jpeg")
+        node.position = SCNVector3(0,0,-1.5)
+        
+        sceneView.scene.rootNode.addChildNode(node)
     }
     
     override func didReceiveMemoryWarning() {
